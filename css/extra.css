@@ -1,0 +1,10 @@
+.header {
+  opacity: 0.7;
+  position: relative;
+  top: -280px;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #dddddd;
+  color: #111111;
+}
