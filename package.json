@@ -1,0 +1,23 @@
+{
+  "name": "frontend-testing-redefined",
+  "private": true,
+  "description": "Presentation on frontend testing using the new tool Cypress held at FINN Academy 2017.05.24",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/finn-no/Frontend-Testing-Redefined-on-Academy.git"
+  },
+  "author": "Stig Kleppe-Jørgensen",
+  "homepage": "https://github.com/finn-no/finn-no/Frontend-Testing-Redefined-on-Academy#readme",
+  "dependencies": {
+    "prez": "^4.7.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.0.0"
+  },
+  "scripts": {
+    "start": "prez --serve --such-notes",
+    "develop": "prez --serve --such-notes --watch",
+    "deploy": "rm -rf build && prez --such-notes && gh-pages -d build",
+    "prez": "prez"
+  }
+}
