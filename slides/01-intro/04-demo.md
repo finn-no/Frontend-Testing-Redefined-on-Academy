@@ -2,36 +2,58 @@
 
 Note:
 
+Så over til demoen.
 
-Cypress
-+ gui
-+ a chrome plugin
-+ real browser
-  + tests are run inside the browser for more stable tests
-  + sees the application while the tests runs
-    + sees errors in test files instead of app
-  + its own profile
-  + chrome plugins
-  + chrome dev console, etc
-+ Tests are written in Mocha BDD style
-  + chai and sinon is available
-+ no external dependencies
-+ uses Promises in the test api for easier testing async logic
-  + retries automatically
-  + automatic waiting on commands and assertions
-    + no need for waits or sleeps
+Vi skal kjøre en end-2-end test av en liten todo app som helt sikkert mange
+kjenner igjen. En liten forskjell her er at den gjør kall til et api som i
+dette tilfellet er en Kotlin app.
 
-+ screenshots
-+ video of test run
-+ easy to debug
-  + click back and forth in command log (it reverts the DOM to the state it was in)
-  + see before and after states in browser
-  + get whole status for the command that was run in the console
-  + right-click and jump to html component
+<kjør>
+
+Her kan vi se at kjøringen av testene vises til venstre i browseren, mens appen
+vises i høyre del live mens den blir styrt av testen.
+
+Dette er en vanlig Chrome instans som kjører i en egen profil. Cypress er mer
+eller mindre "bare" en Chrome plugin.
+
+Hva skjer nå hvis vi prøver å stoppe apiet
+
+<stopp apiet>
+<kjør>
+
+Som forventet så feiler testene. Men hva med å mocke ut nettverkskall? La oss
+prøve det.
+
+Her ser dere at testene er skrevet i Mocha BDD style. Assertions er basert på
+Chai. APIet er promise-basert som gjør det mulig for Cypress å f.eks. gjøre
+retries automatisk. Neste steg kjøres også først når det aktive resolves,
+dvs. ingen sleeps er nødvendig
+
+<gjør feil>
+<enable components tests>
+<kjør>
+
+Disse testene kjører uten api selv om de gjør kall. Her er hvordan dette settes opp
+i testen. Man setter opp ruter og hvordan disse skal håndteres. I stedet for å
+skrive test-data her kan man også referere filer.
+
+Her kan man også vente på at nettverkskallet er gjort og så sjekke på at kallet
+ser ut som man forventer. Venting på nettverkskall (og response) gjør igjen at
+testene blir mer stabile.
+
+Debugging av tester er veldig mye enklere i Cypress. Den tar snapshot av DOMen
+for hvert steg slik at man kan gå fram og tilbake i loggen og se hvordan appen så
+ut. For hvert steg kan en se før/etter tilstand (mus-klikk, etc).
+
+Disse utmockede nettverkskallene blir også vist her. Enda mer info får en i
+developer tools. Og en kan også kjøre apiet her --> cy.viewport(iphone-6)
+
+Og når man skal kjøre dette på CI eller bare sammen med en større test-suite, så
+kan man kjøre vha en cli som også lager video og screenshots.
+
+
+
 + reruns tests if files are changed
-+ mocks out Ajax calls | show the ROUTES panel
-  + can have fixtures in files
-+ viewport --> x,y or presets ("iphone-6") | show in console
 
 - beta
 - only Chrome for now

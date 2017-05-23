@@ -15,7 +15,8 @@ Her er det veldig enkelt å komme i gang; bare last ned og kjør
 Ikke nødvendig å installere noe annet, ikke node, browser, selenium eller noe annet.
 
 Testene blir kjørt inne i en ordentlig browser som gjør at testene blir mye mer
-stabile. Her har man også tilgang til alle verktøyene man er vant til.
+stabile. Bare Chrome pr nå, men planen er å få inn flere. Her har man også tilgang
+til alle verktøyene man er vant til når man debugger, etc.
 
 APIet som brukes for å styre browseren er async, basert på Promises, så en trenger
 ikke legge inn waits selv
