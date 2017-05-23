@@ -29,15 +29,178 @@
       document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 
-    <link rel="stylesheet" href="css/extra.css">
+    <!-- INCLUDE CSS HERE -->
 
   </head>
 
   <body>
 
     <div class="reveal">
-      <div class="slides"><section id="headless-automation" class="slide" data-has-notes="true">
-<h2>Frontend testing redefined</h2><h3>a.k.a. Cypress FTW</h3>
+      <div class="slides"><section id="chapter-intro" class="chapter">
+<section id="intro-intro" class="slide" data-has-notes="true">
+<h2>Frontend testing redefined</h2><h3>a.k.a. Cypress FTW</h3><aside class="notes"><p>Vegard:
+Hei, denne gamlingen heter Stig og jeg heter Vegard og vi jobber i FINN Reise.</p>
+<p>Som forhåpentligvis mange her har fått med seg, er vi i Reise veldig glade i tester.</p>
+<p>Dvs vi er ikke så veldige glade i frontend-testene våre. Det er flere grunner til det.
+Først og fremst fordi de er ustabile. I tillegg er de trege og vanskelige å skrive.</p>
+<p>Nå har vi kommet over et nytt og spennende verktøy for frontend testing som heter Cypress
+som vi tenkte vi skulle vise for dere.</p></aside>
+</section>
+
+<section id="intro-old-stuff" class="slide" data-has-notes="true">
+<h2>Old stuff</h2><ul>
+<li>Selenium/Webdriver<ul>
+<li>PhantomJS</li>
+<li>Chrome</li>
+</ul>
+</li>
+<li>CodeceptJS<ul>
+<li>Electron/Nightmare</li>
+</ul>
+</li>
+</ul><aside class="notes"><p>Men først lurte jeg litt på hvem her som driver med eller har drevet med FE testing?
+Selenium? Med phantomjs/ordentlig browser? Eller Electron via f.eks. Nightmare</p>
+<p>Bare å spørre underveis</p></aside>
+</section>
+
+<section id="intro-cypress" class="slide" data-has-notes="true">
+<h2>Cypress</h2><ul>
+<li>Download and run</li>
+<li>Real browser (Chrome)<ul>
+<li>Tests run inside browser</li>
+<li>Use Chrome developer tools</li>
+</ul>
+</li>
+<li>Simple async API<ul>
+<li>No waits/sleeps needed</li>
+</ul>
+</li>
+<li>Mock network calls inside browser</li>
+</ul><aside class="notes"><p>Så over til Cypress</p>
+<p>Her er det veldig enkelt å komme i gang; bare last ned og kjør
+Ikke nødvendig å installere noe annet, ikke node, browser, selenium eller noe annet.</p>
+<p>Testene blir kjørt inne i en ordentlig browser som gjør at testene blir mye mer
+stabile. Her har man også tilgang til alle verktøyene man er vant til.</p>
+<p>APIet som brukes for å styre browseren er async, basert på Promises, så en trenger
+ikke legge inn waits selv</p>
+<p>Sist men ikke minst kan man mocke ajax call i browseren, dvs. den setter opp noe
+ala nock eller wiremock inne i browseren. Dette er også med på å gjøre testene mye
+mer stabile og enklere å sette opp.</p></aside>
+</section>
+
+<section id="intro-demo" class="slide" data-has-notes="true">
+<h2>Demo</h2><aside class="notes"><p>Cypress</p>
+<ul>
+<li>gui</li>
+<li>a chrome plugin</li>
+<li>real browser<ul>
+<li>tests are run inside the browser for more stable tests</li>
+<li>sees the application while the tests runs<ul>
+<li>sees errors in test files instead of app</li>
+</ul>
+</li>
+<li>its own profile</li>
+<li>chrome plugins</li>
+<li>chrome dev console, etc</li>
+</ul>
+</li>
+<li>Tests are written in Mocha BDD style<ul>
+<li>chai and sinon is available</li>
+</ul>
+</li>
+<li>no external dependencies</li>
+<li><p>uses Promises in the test api for easier testing async logic</p>
+<ul>
+<li>retries automatically</li>
+<li>automatic waiting on commands and assertions<ul>
+<li>no need for waits or sleeps</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>screenshots</p>
+</li>
+<li>video of test run</li>
+<li>easy to debug<ul>
+<li>click back and forth in command log (it reverts the DOM to the state it was in)</li>
+<li>see before and after states in browser</li>
+<li>get whole status for the command that was run in the console</li>
+<li>right-click and jump to html component</li>
+</ul>
+</li>
+<li>reruns tests if files are changed</li>
+<li>mocks out Ajax calls | show the ROUTES panel<ul>
+<li>can have fixtures in files</li>
+</ul>
+</li>
+<li><p>viewport --&gt; x,y or presets (&quot;iphone-6&quot;) | show in console</p>
+</li>
+<li><p>beta</p>
+</li>
+<li>only Chrome for now</li>
+<li>ci uses Electron</li>
+<li>not true headless (needs xvfb++)</li>
+</ul>
+<p>Gotchas</p>
+<ul>
+<li>window.fetch is not supported for network requests. Probably will use a fetch polyfill, so just set window.fetch = null</li>
+</ul></aside>
+</section>
+</section>
+
+<section id="chapter-experience" class="chapter">
+<section id="experience-new-fhh" class="slide" data-has-notes="true">
+<h4>New vacationhome solution (FHH)</h4><ul>
+<li>Module testing for new FHH result site<ul>
+<li>api written in java</li>
+<li>web written in react</li>
+</ul>
+</li>
+<li>Codecept with Nightmare.js (<a href="http://codecept.io/helpers/Nightmare/">http://codecept.io/helpers/Nightmare/</a>)<ul>
+<li>nock for mocking (<a href="https://github.com/node-nock/nock">https://github.com/node-nock/nock</a>)</li>
+</ul>
+</li>
+</ul><aside class="notes"><p>Ny feriehus, komme oss ut av mfinn
+kun resultatsiden, håp om objektsiden
+prøveprosjekt med søkeside som skulle ab-testes
+apiet, eller &quot;backend&quot; kjører på spring boot
+fhh-web, eller &quot;frontend&quot; kjører på node server</p>
+<p>Codecept wrapper nightmare</p></aside>
+</section>
+
+<section id="experience-codecept" class="slide" data-has-notes="true">
+<h3>Codecept with Nightmare.js</h3><ul>
+<li>Required 3rd party mocking framework<ul>
+<li>Nock</li>
+</ul>
+</li>
+<li>Helper methods makes syntax look clean</li>
+<li>Custom helpers</li>
+</ul>
+<pre><code class="lang-javascript"><span class="hljs-comment">/* globals Helper */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Browser</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Helper</span> </span>{
+    mouseover (selector) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.helpers.Nightmare
+            .browser.mouseover(selector);
+    }
+    resizeWindow (width, height) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.helpers.Nightmare
+            .browser.viewport(width, height);
+    }
+
+}
+<span class="hljs-built_in">module</span>.exports = Browser;
+</code></pre><aside class="notes"><p>Som nevnt trenger codecept et eksternt bibliotek for mocking
+Nock sender et kall mot &quot;fhh-api&quot;, som må mockes ut. 
+    konsollen sier fra hvis et &quot;ulovlig&quot; kall blir gjort
+        søkesiden gjorde kall mot api som ikke var planlagt
+            fortsatt ikke fikset?
+    nock.cleanAll() rydder opp i mocks, og brekker bygget hvis en mock har blitt satt opp, men ikke blitt brukt
+        fin måte å se om koden oppfører seg som forventet
+            her burde det skjedd et kall
+Codecept har skrevet hjelpemetoder, vise eksempler senere
+Kan skrive egne hjelpemetoder</p></aside>
+</section>
 </section></div>
     </div>
 
@@ -66,7 +229,7 @@
     });
     </script>
 
-    <script src="js/dynamic-theme.js"></script><script src="js/such-notes-print.js"></script>
+    <!-- INCLUDE JS HERE -->
 
   </body>
 </html>
