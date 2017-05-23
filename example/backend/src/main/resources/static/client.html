@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)http://www.todobackend.com/client/index.html?http://localhost:8888/ -->
+<html lang="en" data-framework="backbonejs" class="gr__todobackend_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title>Todo-Backend client</title>
+		<link rel="stylesheet" href="res/todomvc-common.css">
+		<link rel="stylesheet" href="res/chooser.css">
+</head>
+	<body data-gr-c-s-loaded="true" style="zoom: 100%;">
+
+    <section id="api-root" style="display: none;">
+      <div class="wrapper">
+        <label for="api-root-url">Todo-Backend api root</label>
+        <input id="api-root-url" placeholder="e.g. http://todo-backend-sinatra.herokuapp.com/todos">
+      </div>
+      <button>go</button>
+    </section>
+
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+				<input id="new-todo" placeholder="What needs to be done?" autofocus="">
+			</header>
+			<section id="main" style="display: block;">
+				<input id="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list"><li class="completed">
+			<div class="view">
+				<input class="toggle" type="checkbox" checked="">
+				<label>buy some cheese</label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="buy some cheese">
+		</li><li>
+			<div class="view">
+				<input class="toggle" type="checkbox">
+				<label>feed the cat</label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="feed the cat">
+		</li><li>
+			<div class="view">
+				<input class="toggle" type="checkbox">
+				<label>book a doctors appointment</label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="book a doctors appointment">
+		</li></ul>
+			</section>
+			<footer id="footer" style="display: block;">
+			<span id="todo-count"><strong>2</strong> items left</span>
+			<ul id="filters">
+				<li>
+					<a class="selected" href="http://www.todobackend.com/client/index.html?http://localhost:8888/#/">All</a>
+				</li>
+				<li>
+					<a href="http://www.todobackend.com/client/index.html?http://localhost:8888/#/active">Active</a>
+				</li>
+				<li>
+					<a href="http://www.todobackend.com/client/index.html?http://localhost:8888/#/completed">Completed</a>
+				</li>
+			</ul>
+
+			<button id="clear-completed">Clear completed (1)</button>
+
+		</footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+      <p>Written by <a href="https://github.com/addyosmani">Addy Osmani</a>, modified by <a href="https://github.com/moredip">Pete Hodgson</a> to be integrated with a <a href="http://www.todobackend.com/">TodoBackend API</a>.</p>
+      <p>Part of <a href="http://todomvc.com/">TodoMVC</a> &amp; <a href="http://www.todobackend.com/">TodoBackend</a></p>
+		</footer>
+		<script type="text/template" id="item-template">
+			<div class="view">
+				<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
+				<label><%- title %></label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="<%- title %>">
+		</script>
+		<script type="text/template" id="stats-template">
+			<span id="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
+			<ul id="filters">
+				<li>
+					<a class="selected" href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<% if (completed) { %>
+			<button id="clear-completed">Clear completed (<%= completed %>)</button>
+			<% } %>
+		</script>
+		<script src="res/todomvc-common.js"></script>
+		<script src="res/jquery.js"></script>
+		<script src="res/underscore.js"></script>
+		<script src="res/backbone.js"></script>
+
+		<script src="res/todo.js"></script>
+		<script src="res/todos.js"></script>
+		<script src="res/todo-view.js"></script>
+		<script src="res/app-view.js"></script>
+		<script src="res/router.js"></script>
+		<script src="res/app.js"></script>
+
+
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>
