@@ -1,6 +1,5 @@
 ### Pros and cons
 
-Cypress:
 * Pros
     * Live updating $$$
     * Mocha & Route/call counter
