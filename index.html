@@ -102,26 +102,26 @@ mer stabile og enklere å sette opp.</p></aside>
 <p>Vi skal kjøre en end-2-end test av en liten todo app som helt sikkert mange
 kjenner igjen. En liten forskjell her er at den gjør kall til et api som i
 dette tilfellet er en Kotlin app.</p>
-<kjør>
-
+<p>&lt; kjør &gt;</p>
 <p>Her kan vi se at kjøringen av testene vises til venstre i browseren, mens appen
 vises i høyre del live mens den blir styrt av testen.</p>
 <p>Dette er en vanlig Chrome instans som kjører i en egen profil. Cypress er mer
 eller mindre &quot;bare&quot; en Chrome plugin.</p>
 <p>Hva skjer nå hvis vi prøver å stoppe apiet</p>
-<p><stopp apiet></p>
-<kjør>
-
+<p>&lt; stopp apiet &gt;
+&lt; kjør &gt;</p>
 <p>Som forventet så feiler testene. Men hva med å mocke ut nettverkskall? La oss
 prøve det.</p>
 <p>Her ser dere at testene er skrevet i Mocha BDD style. Assertions er basert på
-Chai. APIet er promise-basert som gjør det mulig for Cypress å f.eks. gjøre
-retries automatisk. Neste steg kjøres også først når det aktive resolves,
-dvs. ingen sleeps er nødvendig</p>
-<p><gjør feil></p>
-<p><enable components tests></p>
-<kjør>
-
+Chai. Spørringene gjøres med CSS selectors. APIet er promise-basert som gjør
+det mulig for Cypress å f.eks. gjøre retries automatisk. Neste steg kjøres også
+først når det aktive resolves, dvs. ingen sleeps er nødvendig</p>
+<p>&lt; enable components tests &gt;
+&lt; &#39;nomatch&#39; på assert contain + syntaks feil &gt;
+&lt; kjør &gt;
+&lt; feil vises på høyre side &gt;
+&lt; fiks syntaks feil &gt;
+&lt; kjør &gt;</p>
 <p>Disse testene kjører uten api selv om de gjør kall. Her er hvordan dette settes opp
 i testen. Man setter opp ruter og hvordan disse skal håndteres. I stedet for å
 skrive test-data her kan man også referere filer.</p>
