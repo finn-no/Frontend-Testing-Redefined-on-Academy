@@ -4,7 +4,7 @@
    * PhantomJS
    * Chrome
 * CodeceptJS
-   * Electron/Nightmare
+   * Nightmare/Electron
 
 Note:
 
