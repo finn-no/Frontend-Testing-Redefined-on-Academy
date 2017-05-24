@@ -38,8 +38,11 @@
     <div class="reveal">
       <div class="slides"><section id="chapter-intro" class="chapter">
 <section id="intro-intro" class="slide" data-has-notes="true">
-<h2>Frontend testing redefined</h2><h3>a.k.a. Cypress FTW</h3><aside class="notes"><p>Vegard:
-Hei, denne gamlingen heter Stig og jeg heter Vegard og vi jobber i FINN Reise.</p>
+<h2>Frontend testing redefined</h2><h5>a.k.a. this week in &quot;up-and-coming bleeding edge &#39;oh god there&#39;s no turning back now we&#39;re in way over our heads&#39; unstable testing frontend framework&quot;</h5><h2>Cypress</h2><aside class="notes"><p>Vegard:
+Hei, denne gamlingen heter Stig og jeg heter Vegard og vi jobber i FINN Reise.
+Når Reise står på scenen betyr det en av to ting:
+    Enten et nytt bleeding edge, ustbilt testrammeverk funnet via en eller annen random techblog
+    Eller at Stig har funnet ut noe nytt han kan i docker; typ ringeklokka hjemme kanskje?</p>
 <p>Som forhåpentligvis mange her har fått med seg, er vi i Reise veldig glade i tester.</p>
 <p>Dvs vi er ikke så veldige glade i frontend-testene våre. Det er flere grunner til det.
 Først og fremst fordi de er ustabile. I tillegg er de trege og vanskelige å skrive.</p>
@@ -153,7 +156,7 @@ kan man kjøre vha en cli som også lager video og screenshots.</p>
 
 <section id="chapter-experience" class="chapter">
 <section id="experience-new-fhh" class="slide" data-has-notes="true">
-<h4>New vacationhome solution (FHH)</h4><ul>
+<h3>New vacationhome solution (FHH)</h3><ul>
 <li>Module testing for new FHH result site<ul>
 <li>api written in java</li>
 <li>web written in react</li>
@@ -167,7 +170,7 @@ kan man kjøre vha en cli som også lager video og screenshots.</p>
 kun resultatsiden, håp om objektsiden
 prøveprosjekt med søkeside som skulle ab-testes
 apiet, eller &quot;backend&quot; kjører på spring boot
-fhh-web, eller &quot;frontend&quot; kjører på node server</p>
+fhh-web, eller &quot;frontend&quot; kjører i node</p>
 <p>Codecept wrapper nightmare</p></aside>
 </section>
 
@@ -203,6 +206,103 @@ Nock sender et kall mot &quot;fhh-api&quot;, som må mockes ut.
             her burde det skjedd et kall
 Codecept har skrevet hjelpemetoder, vise eksempler senere
 Kan skrive egne hjelpemetoder</p></aside>
+</section>
+
+<section id="experience-cypress" class="slide" data-has-notes="true">
+<h3>Cypress</h3><ul>
+<li>Cypress extends Mocha, using mocha syntax<ul>
+<li>describe, it, beforeEach, only, skip etc</li>
+</ul>
+</li>
+<li>Watch mode</li>
+<li>Rich API, but no &quot;helper methods&quot;</li>
+<li>Wonky with server side rendering</li>
+</ul><aside class="notes"><p>Mocha gjør det mulig å gruppere tester
+    1 av 10 tester ikke trenger beforeeach
+        tungvint i codecept
+should have.class klassenavn
+watch mode gjør at det går mye fortere å gjøre endringer
+    codecept må kjøre opp yarn test:module, kanskje sette pause() breakpoints for å debugge
+ingen hjelpemetoder ala codecept, skriver de basically selv
+fordi cypress ikke kjører med ssr, så får vi ikke responsen fra serveren
+    bookingtester som ikke fungerer, broadcast, brokers fra prometheus (alle testene fungerte i codecept)</p></aside>
+</section>
+
+<section id="experience-comparison-test" class="slide" data-has-notes="true">
+<h3>Test Code</h3><p>Codecept:</p>
+<pre><code class="lang-javascript">Scenario(<span class="hljs-string">'Has object marker'</span>, (resultPage, fhhMap) =&gt; {
+    fhhMap.mockSingleCabin();
+    resultPage.goto();
+    fhhMap.hasMapMarker();
+});
+</code></pre>
+<p>Cypress</p>
+<pre><code class="lang-javascript">it(<span class="hljs-string">'Has heatmap marker'</span>, () =&gt; {
+    cy
+        .hasComponentByClassName(<span class="hljs-string">'leaflet-marker-icon'</span>);
+});
+</code></pre><aside class="notes"><p>Fordi Cypress bruker Mocha, så ligger mesteparten av koden i beforEach.
+En test kan derfor fokusere på hva den faktisk vil teste</p></aside>
+</section>
+
+<section id="experience-comparison-page" class="slide" data-has-notes="true">
+<h3>Page Code</h3><p>Codecept:</p>
+<pre><code class="lang-javascript">hasMapMarker () {
+        I.seeElement(<span class="hljs-string">'.leaflet-marker-icon'</span>);
+},
+</code></pre>
+<p>Cypress copy of codecept method:</p>
+<pre><code class="lang-javascript">Cypress.addParentCommand(<span class="hljs-string">'hasMapMarker'</span>, () =&gt; {
+        cy.get(<span class="hljs-string">'.leaflet-marker-icon'</span>);
+});
+</code></pre>
+<p>Cypress:</p>
+<pre><code class="lang-javascript">Cypress.addParentCommand(<span class="hljs-string">'hasComponentByClassName'</span>, 
+    (className) =&gt; {
+        cy.get(<span class="hljs-string">`.<span class="hljs-subst">${className}</span>`</span>);
+    }
+);
+</code></pre><aside class="notes"><p>Codecept er lettere å lese, men dette er nightmare-wrapperen som de har skrevet, hjelpemetodene</p>
+<p>Midterste metoden er en ren kopi hvis jeg skulle skrevet samme metode i cypress</p>
+<p>Nederste er hvordan jeg valgte å implementere det.
+Istedenfor å ha mange metoder som gjør det samme så valgte jeg generiske metoder med selector som input</p></aside>
+</section>
+
+<section id="experience-pros-cons" class="slide" data-has-notes="true">
+<h3>Pros and cons</h3><p>Cypress:</p>
+<ul>
+<li>Pros<ul>
+<li>Live updating $$$</li>
+<li>Mocha &amp; Route/call counter</li>
+<li>DOM snapshot of each step</li>
+<li>Good documentation; decent examples<ul>
+<li><code>(&quot;have.attr&quot;, &quot;src&quot;, &quot;image.png&quot;)</code></li>
+<li><code>(&quot;have.attr&quot;, &quot;href&quot;, &quot;/users&quot;)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Cons<ul>
+<li>SSR makes things difficult</li>
+<li>Stackoverflow won&#39;t save your ass</li>
+</ul>
+</li>
+</ul><aside class="notes"><p>Live oppdatering/watch mode er gull for kontinuerlig utvikling av tester. Øker produktiviteten enormt
+Mocha er bra
+Oversikt over hvilke ruter som har blitt kallt og hvor mange; pga navngiving er det veldig lett å se om det har skjedd et uventet kall
+DOM snapshotting gjør at man kan gå over stegvis hva som skjer i testen. Veldig nyttig for å finne ut hva som feiler
+    Codecept kan sette pause breakpoints i koden, men det må man manuelt skrive, og så kjøre opp testen på nytt
+    hver gang man endrer plassering
+Relativt god dokumentasjon, ok eksempler. Par situasjoner hvor det har vært litt tynt, men da har det ofte vært
+en kombinasjon av at jeg ikke kjenner hjelpeverktøyene også (chai feks)
+    (have.attr, &#39;src&#39;, &#39;image&#39;)
+    vet ikke hvorfor. src er kanskje ikke gjenkjent som en attributt? er listet under det på MDN</p>
+<p>Som nevnt tidligere, SSR gjør ting litt vanskelig. Testing av broadcast feks ble løst med if else
+    if ssr enabled -&gt; produksjonskode, else -&gt; testkode
+        broadcast synlig på alle tester
+        kunne ikke teste om bookingsiden for en gitt bruker hadde satt opp bookings riktig
+        fordi første kall ikke var mulig å mocke ut (kom fra serveren)</p>
+<p>Nytt og uprøvd med de ulemper det påfører + liten hjelp å få på stackoverflow; github diskusjoner/feature requester, eksempelprosjekter</p></aside>
 </section>
 </section></div>
     </div>
