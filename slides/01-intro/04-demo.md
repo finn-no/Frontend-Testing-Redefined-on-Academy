@@ -28,7 +28,7 @@ Chai. Spørringene gjøres med CSS selectors. APIet er promise-basert som gjør
 det mulig for Cypress å f.eks. gjøre retries automatisk. Neste steg kjøres også
 først når det aktive resolves, dvs. ingen sleeps er nødvendig
 
-< enable components tests >
+< enable component, disable e2e >
 < 'nomatch' på assert contain + syntaks feil >
 < kjør >
 < feil vises på høyre side >
