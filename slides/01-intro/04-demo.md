@@ -1,14 +1,13 @@
 ## Demo
 
 Note:
-
 Så over til demoen.
 
 Vi skal kjøre en end-2-end test av en liten todo app som helt sikkert mange
 kjenner igjen. En liten forskjell her er at den gjør kall til et api som i
 dette tilfellet er en Kotlin app.
 
-<kjør>
+< kjør >
 
 Her kan vi se at kjøringen av testene vises til venstre i browseren, mens appen
 vises i høyre del live mens den blir styrt av testen.
@@ -18,20 +17,23 @@ eller mindre "bare" en Chrome plugin.
 
 Hva skjer nå hvis vi prøver å stoppe apiet
 
-<stopp apiet>
-<kjør>
+< stopp apiet >
+< kjør >
 
 Som forventet så feiler testene. Men hva med å mocke ut nettverkskall? La oss
 prøve det.
 
 Her ser dere at testene er skrevet i Mocha BDD style. Assertions er basert på
-Chai. APIet er promise-basert som gjør det mulig for Cypress å f.eks. gjøre
-retries automatisk. Neste steg kjøres også først når det aktive resolves,
-dvs. ingen sleeps er nødvendig
+Chai. Spørringene gjøres med CSS selectors. APIet er promise-basert som gjør
+det mulig for Cypress å f.eks. gjøre retries automatisk. Neste steg kjøres også
+først når det aktive resolves, dvs. ingen sleeps er nødvendig
 
-<gjør feil>
-<enable components tests>
-<kjør>
+< enable components tests >
+< 'nomatch' på assert contain + syntaks feil >
+< kjør >
+< feil vises på høyre side >
+< fiks syntaks feil >
+< kjør >
 
 Disse testene kjører uten api selv om de gjør kall. Her er hvordan dette settes opp
 i testen. Man setter opp ruter og hvordan disse skal håndteres. I stedet for å
