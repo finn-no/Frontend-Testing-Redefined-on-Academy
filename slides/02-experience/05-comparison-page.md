@@ -24,6 +24,10 @@ Cypress.addParentCommand('hasComponentByClassName',
 ```
 
 Note:
+Codecept har noe de kaller for Page, som inneholder relevante metoder for en side, feks resultatsiden
+Cypress bruker kommandoer, men har ikke nødvendigvis delt de opp i en per-testklasse-struktur
+    det gjorde jeg
+    
 Codecept er lettere å lese, men dette er nightmare-wrapperen som de har skrevet, hjelpemetodene
 
 Midterste metoden er en ren kopi hvis jeg skulle skrevet samme metode i cypress

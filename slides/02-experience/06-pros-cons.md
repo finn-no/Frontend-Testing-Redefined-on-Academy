@@ -9,12 +9,13 @@ Cypress:
         * `("have.attr", "src", "image.png")`
         * `("have.attr", "href", "/users")`
 * Cons
-    * SSR makes things difficult
+    * Frontend testing with server side rendering is a pain in general
     * Stackoverflow won't save your ass
 
 Note: 
 
 Live oppdatering/watch mode er gull for kontinuerlig utvikling av tester. Øker produktiviteten enormt
+    noe av det som gjør unittesting så enkelt og raskt med feks jest
 Mocha er bra
 Oversikt over hvilke ruter som har blitt kallt og hvor mange; pga navngiving er det veldig lett å se om det har skjedd et uventet kall
 DOM snapshotting gjør at man kan gå over stegvis hva som skjer i testen. Veldig nyttig for å finne ut hva som feiler

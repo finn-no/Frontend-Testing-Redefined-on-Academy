@@ -14,7 +14,7 @@ Når Reise står på scenen betyr det en av to ting:
 Som forhåpentligvis mange her har fått med seg, er vi i Reise veldig glade i tester.
 
 Dvs vi er ikke så veldige glade i frontend-testene våre. Det er flere grunner til det.
-Først og fremst fordi de er ustabile. I tillegg er de trege og vanskelige å skrive.
+Først og fremst fordi de er ustabile. 
+Frontend tester er tidvis trege og vanskelig å skrive.
 
-Nå har vi kommet over et nytt og spennende verktøy for frontend testing som heter Cypress
-som vi tenkte vi skulle vise for dere.
+Cypress har som mål å gjøre noe med det via en litt mer interaktiv måte å skrive tester på

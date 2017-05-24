@@ -1,10 +1,9 @@
 ### Cypress
 
-* Cypress extends Mocha, using mocha syntax
+* Cypress extends Mocha
     * describe, it, beforeEach, only, skip etc
 * Watch mode
-* Rich API, but no "helper methods"
-* Wonky with server side rendering
+* Rich API, more "hands on"
 
 Note:
 
@@ -14,6 +13,5 @@ Mocha gjør det mulig å gruppere tester
 should have.class klassenavn
 watch mode gjør at det går mye fortere å gjøre endringer
     codecept må kjøre opp yarn test:module, kanskje sette pause() breakpoints for å debugge
-ingen hjelpemetoder ala codecept, skriver de basically selv
-fordi cypress ikke kjører med ssr, så får vi ikke responsen fra serveren
-    bookingtester som ikke fungerer, broadcast, brokers fra prometheus (alle testene fungerte i codecept)
+codecept sin kode wrapper nightmare sine bibliotek, bruker cypress api direkte
+    syntaksen er litt mindre lesbar umiddelbart, men kanskje "lettere" å gå ut av boksen

@@ -17,5 +17,5 @@ it('Has heatmap marker', () => {
 ```
 
 Note:
-Fordi Cypress bruker Mocha, så ligger mesteparten av koden i beforEach.
-En test kan derfor fokusere på hva den faktisk vil teste
+Fordi Cypress bruker Mocha, så ligger mesteparten av koden i beforeEach.
+Hver enkelt test inneholder derfor kun testrelatert kode, og ikke nødvendigvis oppsett (mocking, gå til side etc)
