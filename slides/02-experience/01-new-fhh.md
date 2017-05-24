@@ -1,4 +1,4 @@
-#### New vacationhome solution (FHH)
+### New vacationhome solution (FHH)
 
 * Module testing for new FHH result site
    * api written in java
@@ -11,6 +11,6 @@ Ny feriehus, komme oss ut av mfinn
 kun resultatsiden, håp om objektsiden
 prøveprosjekt med søkeside som skulle ab-testes
 apiet, eller "backend" kjører på spring boot
-fhh-web, eller "frontend" kjører på node server
+fhh-web, eller "frontend" kjører i node
 
 Codecept wrapper nightmare 
