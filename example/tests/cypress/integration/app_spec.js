@@ -88,7 +88,7 @@ describe("TodoMVC", function () {
   });
 
 /*
-  context("Component Testing", function () {
+  context.only("Component Testing", function () {
     beforeEach(function () {
       cy
         .server({force404: true})
