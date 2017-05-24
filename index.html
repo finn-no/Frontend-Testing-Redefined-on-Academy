@@ -45,9 +45,9 @@ Når Reise står på scenen betyr det en av to ting:
     Eller at Stig har funnet ut noe nytt han kan i docker; typ ringeklokka hjemme kanskje?</p>
 <p>Som forhåpentligvis mange her har fått med seg, er vi i Reise veldig glade i tester.</p>
 <p>Dvs vi er ikke så veldige glade i frontend-testene våre. Det er flere grunner til det.
-Først og fremst fordi de er ustabile. I tillegg er de trege og vanskelige å skrive.</p>
-<p>Nå har vi kommet over et nytt og spennende verktøy for frontend testing som heter Cypress
-som vi tenkte vi skulle vise for dere.</p></aside>
+Først og fremst fordi de er ustabile. 
+Frontend tester er tidvis trege og vanskelig å skrive.</p>
+<p>Cypress har som mål å gjøre noe med det via en litt mer interaktiv måte å skrive tester på</p></aside>
 </section>
 
 <section id="intro-old-stuff" class="slide" data-has-notes="true">
@@ -197,10 +197,9 @@ fhh-web, eller &quot;frontend&quot; kjører i node</p>
 }
 <span class="hljs-built_in">module</span>.exports = Browser;
 </code></pre><aside class="notes"><p>Som nevnt trenger codecept et eksternt bibliotek for mocking
-Nock sender et kall mot &quot;fhh-api&quot;, som må mockes ut. 
+Nock mocker bort kallene mot apiet
     konsollen sier fra hvis et &quot;ulovlig&quot; kall blir gjort
         søkesiden gjorde kall mot api som ikke var planlagt
-            fortsatt ikke fikset?
     nock.cleanAll() rydder opp i mocks, og brekker bygget hvis en mock har blitt satt opp, men ikke blitt brukt
         fin måte å se om koden oppfører seg som forventet
             her burde det skjedd et kall
@@ -210,22 +209,20 @@ Kan skrive egne hjelpemetoder</p></aside>
 
 <section id="experience-cypress" class="slide" data-has-notes="true">
 <h3>Cypress</h3><ul>
-<li>Cypress extends Mocha, using mocha syntax<ul>
+<li>Cypress extends Mocha<ul>
 <li>describe, it, beforeEach, only, skip etc</li>
 </ul>
 </li>
 <li>Watch mode</li>
-<li>Rich API, but no &quot;helper methods&quot;</li>
-<li>Wonky with server side rendering</li>
+<li>Rich API, more &quot;hands on&quot;</li>
 </ul><aside class="notes"><p>Mocha gjør det mulig å gruppere tester
     1 av 10 tester ikke trenger beforeeach
         tungvint i codecept
 should have.class klassenavn
 watch mode gjør at det går mye fortere å gjøre endringer
     codecept må kjøre opp yarn test:module, kanskje sette pause() breakpoints for å debugge
-ingen hjelpemetoder ala codecept, skriver de basically selv
-fordi cypress ikke kjører med ssr, så får vi ikke responsen fra serveren
-    bookingtester som ikke fungerer, broadcast, brokers fra prometheus (alle testene fungerte i codecept)</p></aside>
+codecept sin kode wrapper nightmare sine bibliotek, bruker cypress api direkte
+    syntaksen er litt mindre lesbar umiddelbart, men kanskje &quot;lettere&quot; å gå ut av boksen</p></aside>
 </section>
 
 <section id="experience-comparison-test" class="slide" data-has-notes="true">
@@ -241,8 +238,8 @@ fordi cypress ikke kjører med ssr, så får vi ikke responsen fra serveren
     cy
         .hasComponentByClassName(<span class="hljs-string">'leaflet-marker-icon'</span>);
 });
-</code></pre><aside class="notes"><p>Fordi Cypress bruker Mocha, så ligger mesteparten av koden i beforEach.
-En test kan derfor fokusere på hva den faktisk vil teste</p></aside>
+</code></pre><aside class="notes"><p>Fordi Cypress bruker Mocha, så ligger mesteparten av koden i beforeEach.
+Hver enkelt test inneholder derfor kun testrelatert kode, og ikke nødvendigvis oppsett (mocking, gå til side etc)</p></aside>
 </section>
 
 <section id="experience-comparison-page" class="slide" data-has-notes="true">
@@ -262,7 +259,10 @@ En test kan derfor fokusere på hva den faktisk vil teste</p></aside>
         cy.get(<span class="hljs-string">`.<span class="hljs-subst">${className}</span>`</span>);
     }
 );
-</code></pre><aside class="notes"><p>Codecept er lettere å lese, men dette er nightmare-wrapperen som de har skrevet, hjelpemetodene</p>
+</code></pre><aside class="notes"><p>Codecept har noe de kaller for Page, som inneholder relevante metoder for en side, feks resultatsiden
+Cypress bruker kommandoer, men har ikke nødvendigvis delt de opp i en per-testklasse-struktur
+    det gjorde jeg</p>
+<p>Codecept er lettere å lese, men dette er nightmare-wrapperen som de har skrevet, hjelpemetodene</p>
 <p>Midterste metoden er en ren kopi hvis jeg skulle skrevet samme metode i cypress</p>
 <p>Nederste er hvordan jeg valgte å implementere det.
 Istedenfor å ha mange metoder som gjør det samme så valgte jeg generiske metoder med selector som input</p></aside>
@@ -283,11 +283,12 @@ Istedenfor å ha mange metoder som gjør det samme så valgte jeg generiske meto
 </ul>
 </li>
 <li>Cons<ul>
-<li>SSR makes things difficult</li>
+<li>Frontend testing with server side rendering is a pain in general</li>
 <li>Stackoverflow won&#39;t save your ass</li>
 </ul>
 </li>
 </ul><aside class="notes"><p>Live oppdatering/watch mode er gull for kontinuerlig utvikling av tester. Øker produktiviteten enormt
+    noe av det som gjør unittesting så enkelt og raskt med feks jest
 Mocha er bra
 Oversikt over hvilke ruter som har blitt kallt og hvor mange; pga navngiving er det veldig lett å se om det har skjedd et uventet kall
 DOM snapshotting gjør at man kan gå over stegvis hva som skjer i testen. Veldig nyttig for å finne ut hva som feiler
