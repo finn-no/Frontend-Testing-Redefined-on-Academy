@@ -87,7 +87,8 @@ describe("TodoMVC", function () {
     });
   });
 
-  context.skip("Component Testing", function () {
+/*
+  context("Component Testing", function () {
     beforeEach(function () {
       cy
         .server({force404: true})
@@ -118,4 +119,5 @@ describe("TodoMVC", function () {
         .get("#todo-list li").eq(2).find("label").should("contain", TODO_ITEM_THREE)
     });
   });
+  */
 });
