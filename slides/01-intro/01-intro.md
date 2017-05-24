@@ -1,6 +1,7 @@
 ## Frontend testing redefined
+##### a.k.a. this week in "up-and-coming bleeding edge 'oh god there's no turning back now we're in way over our heads' unstable testing frontend framework"
 
-### a.k.a. Cypress FTW
+## Cypress 
 
 
 Note:
