@@ -80,7 +80,8 @@ Selenium? Med phantomjs/ordentlig browser? Eller Electron via f.eks. Nightmare</
 <p>Her er det veldig enkelt å komme i gang; bare last ned og kjør
 Ikke nødvendig å installere noe annet, ikke node, browser, selenium eller noe annet.</p>
 <p>Testene blir kjørt inne i en ordentlig browser som gjør at testene blir mye mer
-stabile. Her har man også tilgang til alle verktøyene man er vant til.</p>
+stabile. Bare Chrome pr nå, men planen er å få inn flere. Her har man også tilgang
+til alle verktøyene man er vant til når man debugger, etc.</p>
 <p>APIet som brukes for å styre browseren er async, basert på Promises, så en trenger
 ikke legge inn waits selv</p>
 <p>Sist men ikke minst kan man mocke ajax call i browseren, dvs. den setter opp noe
@@ -89,51 +90,45 @@ mer stabile og enklere å sette opp.</p></aside>
 </section>
 
 <section id="intro-demo" class="slide" data-has-notes="true">
-<h2>Demo</h2><aside class="notes"><p>Cypress</p>
+<h2>Demo</h2><aside class="notes"><p>Så over til demoen.</p>
+<p>Vi skal kjøre en end-2-end test av en liten todo app som helt sikkert mange
+kjenner igjen. En liten forskjell her er at den gjør kall til et api som i
+dette tilfellet er en Kotlin app.</p>
+<kjør>
+
+<p>Her kan vi se at kjøringen av testene vises til venstre i browseren, mens appen
+vises i høyre del live mens den blir styrt av testen.</p>
+<p>Dette er en vanlig Chrome instans som kjører i en egen profil. Cypress er mer
+eller mindre &quot;bare&quot; en Chrome plugin.</p>
+<p>Hva skjer nå hvis vi prøver å stoppe apiet</p>
+<p><stopp apiet></p>
+<kjør>
+
+<p>Som forventet så feiler testene. Men hva med å mocke ut nettverkskall? La oss
+prøve det.</p>
+<p>Her ser dere at testene er skrevet i Mocha BDD style. Assertions er basert på
+Chai. APIet er promise-basert som gjør det mulig for Cypress å f.eks. gjøre
+retries automatisk. Neste steg kjøres også først når det aktive resolves,
+dvs. ingen sleeps er nødvendig</p>
+<p><gjør feil></p>
+<p><enable components tests></p>
+<kjør>
+
+<p>Disse testene kjører uten api selv om de gjør kall. Her er hvordan dette settes opp
+i testen. Man setter opp ruter og hvordan disse skal håndteres. I stedet for å
+skrive test-data her kan man også referere filer.</p>
+<p>Her kan man også vente på at nettverkskallet er gjort og så sjekke på at kallet
+ser ut som man forventer. Venting på nettverkskall (og response) gjør igjen at
+testene blir mer stabile.</p>
+<p>Debugging av tester er veldig mye enklere i Cypress. Den tar snapshot av DOMen
+for hvert steg slik at man kan gå fram og tilbake i loggen og se hvordan appen så
+ut. For hvert steg kan en se før/etter tilstand (mus-klikk, etc).</p>
+<p>Disse utmockede nettverkskallene blir også vist her. Enda mer info får en i
+developer tools. Og en kan også kjøre apiet her --&gt; cy.viewport(iphone-6)</p>
+<p>Og når man skal kjøre dette på CI eller bare sammen med en større test-suite, så
+kan man kjøre vha en cli som også lager video og screenshots.</p>
 <ul>
-<li>gui</li>
-<li>a chrome plugin</li>
-<li>real browser<ul>
-<li>tests are run inside the browser for more stable tests</li>
-<li>sees the application while the tests runs<ul>
-<li>sees errors in test files instead of app</li>
-</ul>
-</li>
-<li>its own profile</li>
-<li>chrome plugins</li>
-<li>chrome dev console, etc</li>
-</ul>
-</li>
-<li>Tests are written in Mocha BDD style<ul>
-<li>chai and sinon is available</li>
-</ul>
-</li>
-<li>no external dependencies</li>
-<li><p>uses Promises in the test api for easier testing async logic</p>
-<ul>
-<li>retries automatically</li>
-<li>automatic waiting on commands and assertions<ul>
-<li>no need for waits or sleeps</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>screenshots</p>
-</li>
-<li>video of test run</li>
-<li>easy to debug<ul>
-<li>click back and forth in command log (it reverts the DOM to the state it was in)</li>
-<li>see before and after states in browser</li>
-<li>get whole status for the command that was run in the console</li>
-<li>right-click and jump to html component</li>
-</ul>
-</li>
-<li>reruns tests if files are changed</li>
-<li>mocks out Ajax calls | show the ROUTES panel<ul>
-<li>can have fixtures in files</li>
-</ul>
-</li>
-<li><p>viewport --&gt; x,y or presets (&quot;iphone-6&quot;) | show in console</p>
+<li><p>reruns tests if files are changed</p>
 </li>
 <li><p>beta</p>
 </li>
